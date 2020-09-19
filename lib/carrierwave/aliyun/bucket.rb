@@ -46,7 +46,7 @@ module CarrierWave
 
         @endpoint = "https://oss-#{self.region}.aliyuncs.com"
         @upload_endpoint = uploader.aliyun_internal == true ? "https://oss-#{self.region}-internal.aliyuncs.com" : @endpoint
-        @img_endpoint = "https://img-#{self.region}.aliyuncs.com"
+        @img_endpoint = "https://oss-#{self.region}.aliyuncs.com"
       end
 
       # 上传文件

@@ -62,7 +62,7 @@ class CarrierWave::Aliyun::BucketTest < ActiveSupport::TestCase
 
     # should get url with :thumb
     url = @bucket.private_get_url("bar/foo.jpg", thumb: "?x-oss-process=image/resize,w_192,h_192,m_fill")
-    assert_equal true, url.include?("https://#{@uploader.aliyun_bucket}.img-cn-beijing.aliyuncs.com/bar/foo.jpg?x-oss-process=image%2Fresize%2Cw_192%2Ch_192%2Cm_fill&Expires=")
+    assert_equal true, url.include?("https://#{@uploader.aliyun_bucket}.oss-cn-beijing.aliyuncs.com/bar/foo.jpg?x-oss-process=image%2Fresize%2Cw_192%2Ch_192%2Cm_fill&Expires=")
   end
 
   test "head" do
