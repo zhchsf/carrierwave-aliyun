@@ -23,7 +23,8 @@ module CarrierWave
       end
 
       def delete
-        bucket.delete(path)
+        # 没有开通删除权限
+        # bucket.delete(path)
         true
       rescue => e
         # If the file's not there, don't panic
