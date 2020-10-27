@@ -132,9 +132,9 @@ module CarrierWave
         url = if thumb&.start_with?("?")
                 # foo.jpg?x-oss-process=image/resize,h_100
                 parameters = { "x-oss-process" => thumb.split("=").last }
-                oss_client.object_url(path, private, 15.minutes, parameters)
+                oss_client.object_url(path, private, 120.minutes, parameters)
               else
-                oss_client.object_url(path, private, 15.minutes)
+                oss_client.object_url(path, private, 120.minutes)
               end
 
         unless private
