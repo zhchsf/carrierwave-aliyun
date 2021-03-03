@@ -10,6 +10,7 @@ module CarrierWave
 
       attr_reader :endpoint, :upload_endpoint, :get_endpoint
 
+      attr_reader :open_timeout, :read_timeout
       def initialize(uploader)
         if uploader.aliyun_area.present?
           ActiveSupport::Deprecation.warn("config.aliyun_area will deprecation in carrierwave-aliyun 1.1.0, please use `aliyun_region` instead.")
@@ -40,6 +41,9 @@ module CarrierWave
         # Host for get request
         @endpoint = "https://#{bucket}.oss-#{region}.aliyuncs.com"
         @host = uploader.aliyun_host || @endpoint
+
+        @open_timeout = uploader.open_timeout
+        @read_timeout = uploader.read_timeout
 
         unless @host.include?("//")
           raise "config.aliyun_host requirement include // http:// or https://, but you give: #{host}"
@@ -154,14 +158,14 @@ module CarrierWave
       def oss_client
         return @oss_client if defined?(@oss_client)
 
-        client = ::Aliyun::OSS::Client.new(endpoint: get_endpoint, access_key_id: access_key_id, access_key_secret: access_key_secret)
+        client = ::Aliyun::OSS::Client.new(endpoint: get_endpoint, access_key_id: access_key_id, access_key_secret: access_key_secret, open_timeout: open_timeout, read_timeout: read_timeout)
         @oss_client = client.get_bucket(bucket)
       end
 
       def oss_upload_client
         return @oss_upload_client if defined?(@oss_upload_client)
 
-        client = ::Aliyun::OSS::Client.new(endpoint: upload_endpoint, access_key_id: access_key_id, access_key_secret: access_key_secret)
+        client = ::Aliyun::OSS::Client.new(endpoint: upload_endpoint, access_key_id: access_key_id, access_key_secret: access_key_secret, open_timeout: open_timeout, read_timeout: read_timeout)
         @oss_upload_client = client.get_bucket(bucket)
       end
     end

@@ -21,6 +21,9 @@ module CarrierWave
         add_config :aliyun_host
         add_config :aliyun_mode
 
+        add_config :open_timeout
+        add_config :read_timeout
+
         configure do |config|
           config.storage_engines[:aliyun] = "CarrierWave::Storage::Aliyun"
         end
